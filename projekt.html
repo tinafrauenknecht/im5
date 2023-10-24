@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/output.css">
+    <style>
+        /* CSS für das responsive Design */
+        @media (max-width: 768px) {
+            .flex {
+                flex-direction: column;
+            }
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2.5rem;
+        }
+        .video-container {
+            max-width: 100%;
+            padding-bottom: 56.25%;
+            position: relative;
+        }
+        .video {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .video-info h2 {
+            font-size: 2rem;
+        }
+
+        .video-info p {
+            font-size: 1.5rem; 
+            margin-top: 1rem; 
+        }
+
+    </style>
+    <title>Bachelorarbeit</title>
+</head>
+
+<body>
+    <header>
+
+        <!-- Navigation -->
+        <nav class="flex justify-between p-10 relative text-black">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <h1 class="text-xl font-semibold">Bachelorarbeit</h1>
+                </a>
+            </div>
+            <div class="flex text-lg space-x-10"> 
+                <a href="lehrprojekt.html">Lehrprojekt</a>
+                <a href="thesis.html">Thesis</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Video content wird hier geladen -->
+    <div class="grid-container">
+        <div class="video-container">
+            <video class="video" controls muted></video>
+        </div>
+        <div class="video-info">
+            <h2 class="text-3xl font-semibold mb-2"></h2>
+            <p class="text-lg mb-8"></p>
+            <p class="text-sm mb-8"></p>
+        </div>
+    </div>
+
+    <footer class="px-10 pt-5 pb-5 text-black flex items-center justify-between">
+        <div>
+            <a href="impressum.html" class="text-sm">Impressum</a>
+            &#124;
+            <a href="datenschutz.html" class="text-sm">Datenschutz</a>
+        </div>
+
+        <div>
+            <span class="mr-2 text-sm">Tina Frauenknecht © 2023</span>
+        </div>
+        <div class="flex items-center">
+            <a href="https://www.linkedin.com/in/tina-frauenknecht-90651626a/" class="mx-2 text-sm" target="_blank">
+                <img src="assets/icons/linkedin.png" alt="LinkedIn" width="18" height="18">
+            </a>
+            <a href="mailto:tina.frauenknecht@hotmail.com" class="mx-2 text-sm">
+                <img src="assets/icons/mail.png" alt="E-Mail" width="24" height="24">
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            const results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Laden und Anzeigen des Videoinhalts basierend auf dem ausgewählten Index
+        fetch('projekt.json') // Passen Sie den Pfad zu Ihrer JSON-Datei an
+            .then(response => response.json())
+            .then(data => {
+                const selectedVideoIndex = parseInt(getUrlParameter('index')) || 0;
+
+                if (selectedVideoIndex >= 0 && selectedVideoIndex < data.length) {
+                    const video = data[selectedVideoIndex];
+
+                    // Finden und Aktualisieren von Videoelementen
+                    const videoElement = document.querySelector('.video');
+                    const titleElement = document.querySelector('.video-info h2');
+                    const descriptionElement = document.querySelectorAll('.video-info p');
+
+                    // Videoquelle festlegen
+                    videoElement.src = video.source;
+
+                    // Titel und Beschreibung setzen
+                    titleElement.textContent = video.title;
+                    descriptionElement[1].textContent = video.beschreibung;
+                }
+            });
+    </script>
+</body>
+</html>
