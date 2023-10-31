@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/css/output.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <title>MEETTIME</title>
+
     <style>
         /* CSS für das responsive Design */
         @media (max-width: 768px) {
@@ -13,38 +16,33 @@
             }
         }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            padding: 2.5rem;
+        .flex-container {
+            display: flex;
         }
-        .video-container {
-            max-width: 100%;
-            padding-bottom: 56.25%;
-            position: relative;
-        }
+
         .video {
-            width: 100%;
-            height: 100%;
+            width: 50%; 
+            height: 50vh;
         }
         
+        .video-info {
+            flex: 1; /* Der Text nimmt den verbleibenden Platz ein */
+            padding: 4vw; /* Fügen Sie Padding hinzu, um den Text vom Video zu trennen */
+        }
+
         .video-info h2 {
-            font-size: 2rem;
+            font-size: 1.5rem;
         }
 
         .video-info p {
-            font-size: 1.5rem; 
             margin-top: 1rem; 
         }
-
     </style>
-    <title>MEETTIME</title>
+
 </head>
 
 <body>
     <header>
-
         <!-- Navigation -->
         <nav class="flex justify-between p-10 relative text-black">
             <div class="flex items-center">
@@ -56,15 +54,14 @@
         </nav>
     </header>
 
-    <!-- Video content wird hier geladen -->
-    <div class="grid-container">
-        <div class="video-container">
-            <video class="video" controls muted></video>
-        </div>
-        <div class="video-info">
-            <h2 class="text-3xl font-semibold mb-2"></h2>
-            <p class="text-lg mb-8"></p>
-            <p class="text-sm mb-8"></p>
+    <div class="grid grid-flow-row p-10">
+        <div class="flex-container">
+            <iframe class="video" frameborder="0" allowfullscreen></iframe>
+            <div class="video-info">
+                <h2 class="text-3xl font-semibold mb-2"></h2>
+                <p class="text-lg mb-8"></p>
+                <p class="text-sm mb-8"></p>
+            </div>
         </div>
     </div>
 
@@ -88,36 +85,57 @@
         </div>
     </footer>
 
-    <script>
-        function getUrlParameter(name) {
-            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-            const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-            const results = regex.exec(location.search);
-            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+<script>
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    function extractYouTubeVideoId(youtubeLink) {
+        const videoIdRegex = /v=([a-zA-Z0-9_-]+)/;
+        const match = youtubeLink.match(videoIdRegex);
+        if (match) {
+            return match[1];
         }
+        return null;
+    }
 
-        // Laden und Anzeigen des Videoinhalts basierend auf dem ausgewählten Index
-        fetch('projekt.json') // Passen Sie den Pfad zu Ihrer JSON-Datei an
-            .then(response => response.json())
-            .then(data => {
-                const selectedVideoIndex = parseInt(getUrlParameter('index')) || 0;
 
-                if (selectedVideoIndex >= 0 && selectedVideoIndex < data.length) {
-                    const video = data[selectedVideoIndex];
 
-                    // Finden und Aktualisieren von Videoelementen
-                    const videoElement = document.querySelector('.video');
-                    const titleElement = document.querySelector('.video-info h2');
-                    const descriptionElement = document.querySelectorAll('.video-info p');
+    // Laden und Anzeigen des Videoinhalts basierend auf dem ausgewählten Index
+    fetch('projekt.json') // Passen Sie den Pfad zu Ihrer JSON-Datei an
+        .then(response => response.json())
+        .then(data => {
+            const selectedVideoIndex = parseInt(getUrlParameter('index')) || 0;
 
-                    // Videoquelle festlegen
-                    videoElement.src = video.source;
+            if (selectedVideoIndex >= 0 && selectedVideoIndex < data.length) {
+                const video = data[selectedVideoIndex];
 
-                    // Titel und Beschreibung setzen
-                    titleElement.textContent = video.title;
-                    descriptionElement[1].textContent = video.beschreibung;
-                }
-            });
-    </script>
+                // Finden und Aktualisieren von Videoelementen
+                const videoElement = document.querySelector('.video');
+                const titleElement = document.querySelector('.video-info h2');
+                const descriptionElement = document.querySelectorAll('.video-info p');
+
+                // Videoquelle festlegen
+                    const youtubeVideoId = extractYouTubeVideoId(video['source-yt']);
+                    if (youtubeVideoId) {
+                        // Erstellen Sie den Embed-Link für YouTube
+                        const youTubeEmbedURL = `https://www.youtube.com/embed/${youtubeVideoId}`;
+                        videoElement.src = youTubeEmbedURL;
+                    }
+
+
+                // Titel und Beschreibung setzen
+                titleElement.textContent = video.title;
+                descriptionElement[1].textContent = video.beschreibung;
+            }
+        });
+
+  
+
+
+</script>
 </body>
 </html>

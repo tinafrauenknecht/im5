@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/css/output.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <title>MEETTIME</title>
 </head>
 
@@ -115,8 +116,6 @@
         <div class="absolute inset-0">
             <video autoplay muted loop class="w-full h-full object-cover">
                 <source src="assets/videos/hintergrund.mp4" type="video/mp4">
-                <!-- Fallback für ältere Browser -->
-                Your browser does not support the video tag.
             </video>
         </div>
 
@@ -145,11 +144,11 @@
             .then(response => response.json())
             .then(data => {
                 const videoGrid = document.querySelector('.video-grid');
-
+    
                 data.forEach((video, index) => {
                     const videoContainer = document.createElement('div');
                     videoContainer.classList.add('video-container', 'group', 'relative', 'cursor-pointer', 'hover:opacity-80');
-
+    
                     const videoElement = document.createElement('video');
                     videoElement.classList.add('video');
                     videoElement.controls = false;
@@ -158,29 +157,24 @@
                     videoSource.src = video.source;
                     videoSource.type = 'video/mp4';
                     videoElement.appendChild(videoSource);
-
+    
                     const imageElement = document.createElement('img');
                     imageElement.src = video.standbild;
                     imageElement.alt = video.title;
-
+    
                     const videoInfo = document.createElement('div');
                     videoInfo.classList.add('video-info');
-
-                    const title = document.createElement('h2');
-                    title.classList.add('text-lg', 'font-semibold', 'mb-2');
-                    title.textContent = video.title;
-
+    
                     const description = document.createElement('p');
                     description.classList.add('text-sm');
                     description.textContent = video.description;
-
-                    videoInfo.appendChild(title);
+    
                     videoInfo.appendChild(description);
-
+    
                     videoContainer.appendChild(imageElement);
                     videoContainer.appendChild(videoElement);
                     videoContainer.appendChild(videoInfo);
-
+    
                     imageElement.addEventListener('mouseover', () => {
                         imageElement.style.opacity = 0;
                         videoElement.style.display = 'block';
@@ -188,7 +182,7 @@
                         videoInfo.style.opacity = 1;
                         videoInfo.style.visibility = 'visible';
                     });
-
+    
                     videoElement.addEventListener('mouseout', () => {
                         videoElement.pause();
                         videoElement.style.display = 'none';
@@ -196,15 +190,16 @@
                         videoInfo.style.opacity = 0;
                         videoInfo.style.visibility = 'hidden';
                     });
-
+    
                     videoContainer.addEventListener('click', () => {
                         window.location.href = `projekt.html?index=${index}`;
                     });
-
+    
                     videoGrid.appendChild(videoContainer);
                 });
             });
     </script>
+    
 
     <footer class="px-10 pt-5 pb-5 text-black flex items-center justify-between">
         <div>
