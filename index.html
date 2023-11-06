@@ -23,36 +23,14 @@
         color: #777;
     }
     
-    /* Navigation styles */
-    .nav {
-        justify-content: space-between;
-        padding: 10px;
-        position: relative;
-    }
-    
-    .nav-logo {
-        text-decoration: none;
-    }
-    
-    .nav-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-    }
-    
-    .nav-links {
-        font-size: 1.125rem;
-    }
-    
-    .nav-links a {
-        text-decoration: none;
-    }
+
     
     /* Video grid styles */
     .video-grid {
-        padding: 2.5rem;
+        padding-top: 1.5rem;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
     }
     
     /* Video container styles */
@@ -109,7 +87,7 @@
     }
 </style>
 
-<body>
+<body class="font-sans">
     <header class="relative h-screen">
 
         <!-- Hintergrund (Full Screen) -->
@@ -120,11 +98,10 @@
         </div>
 
         <!-- Navigation -->
-        <nav class="flex justify-between p-10 relative text-white">
+        <nav class="flex justify-between py-10 px-20 relative text-white">
             <div class="flex items-center">
             </div>
             <div class="flex text-lg space-x-10"> 
-                <a href="index.html">MEETTIME</a>
                 <a href="about.html">ABOUT</a>
             </div>
         </nav>
@@ -201,7 +178,7 @@
     </script>
     
 
-    <footer class="px-10 pt-5 pb-5 text-black flex items-center justify-between">
+    <footer class="px-20 pt-5 pb-5 text-black flex items-center justify-between">
         <div>
             <a href="impressum.html" class="text-sm">Impressum</a>
             &#124;
