@@ -34,19 +34,23 @@
 
 </head>
 
-<body class="font-sans">
+<body class="flex flex-col min-h-screen font-sans">
     <header class="bg-cover" style="background-image: url('assets/img/background.png');">
-        <!-- Navigation -->
         <nav class="flex justify-between py-10 px-20 relative text-white">
             <div class="flex items-center">
             </div>
             <div class="flex text-lg space-x-10"> 
-                <a href="index.html" style="transition: font-weight 0.2s;" onmouseover="this.style.fontWeight='bold';" onmouseout="this.style.fontWeight='normal';">MEETTIME</a>
-                <a href="about.html" style="transition: font-weight 0.2s;" onmouseover="this.style.fontWeight='bold';" onmouseout="this.style.fontWeight='normal';">ABOUT</a>
+                <a href="index.html" class="relative">
+                    <span class="border-2 border-transparent p-2 px-4 transition duration-200 hover:border-white hover:font-semibold hover:p-2 hover:px-4">MEETTIME</span>
+                </a>
+                <a href="about.html" class="relative">
+                    <span class="border-2 border-transparent p-2 px-4 transition duration-200 hover:border-white hover:font-semibold hover:p-2 hover:px-4">ABOUT</span>
+                </a>
             </div>
         </nav>
     </header>
 
+    <div class="flex-1">
     <div class="grid grid-flow-row p-20">
         <div class="flex-container">
             <iframe class="video" frameborder="0" allowfullscreen></iframe>
@@ -56,6 +60,7 @@
                 <p class="text-lg mb-8"></p>
             </div>
         </div>
+    </div>
     </div>
 
     <footer class="px-20 pt-5 pb-5 text-black flex items-center justify-between">

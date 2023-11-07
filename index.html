@@ -90,7 +90,7 @@
 <body class="font-sans">
     <header class="relative h-screen">
 
-        <!-- Hintergrund (Full Screen) -->
+        <!-- Hintergrundvideo -->
         <div class="absolute inset-0">
             <video autoplay muted loop class="w-full h-full object-cover">
                 <source src="assets/videos/hintergrund.mp4" type="video/mp4">
@@ -102,16 +102,19 @@
             <div class="flex items-center">
             </div>
             <div class="flex text-lg space-x-10"> 
-                <a href="about.html" style="transition: font-weight 0.2s;" onmouseover="this.style.fontWeight='bold';" onmouseout="this.style.fontWeight='normal';">ABOUT</a>
+                <a href="about.html" class="relative">
+                    <span class="border-2 border-transparent p-2 px-4 transition duration-200 hover:border-white hover:font-semibold hover:p-2 hover:px-4">ABOUT</span>
+                </a>
             </div>
         </nav>
     </header>
 
 
 
-    <!-- Video content will be loaded here -->
+
+    <!-- Einzelne Videos -->
     <div class="video-grid">
-        <!-- Video elements will be generated here -->
+        <!-- Videos werden hier geladen -->
     </div>
 
 
