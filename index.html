@@ -9,87 +9,8 @@
     <title>MEETTIME</title>
 </head>
 
-<style>
-    /* General styles */
-    .flex {
-        display: flex;
-    }
-    
-    .text-black {
-        color: black;
-    }
-    
-    .hover:text-gray-700:hover {
-        color: #777;
-    }
-    
-
-    
-    /* Video grid styles */
-    .video-grid {
-        padding-top: 1.5rem;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
-    }
-    
-    /* Video container styles */
-    .video-container {
-        position: relative;
-        max-width: 100%;
-        padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        overflow: hidden;
-    }
-    
-    .video-container img,
-    .video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transition: opacity 0.3s; /* Add a smooth transition effect */
-    }
-    
-    .video-container img {
-        object-fit: cover; /* Ensure the image covers the entire container */
-    }
-    
-    .video {
-        display: none; /* Initially hide the video */
-    }
-    
-    /* Video info styles */
-    .video-info {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        color: white;
-        padding: 10px;
-        max-width: 100%;
-        box-sizing: border-box;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s;
-    }
-    
-    .video-info h2 {
-        margin-bottom: 0;
-    }
-    
-    .video-info p {
-        margin-top: 0;
-    }
-    
-    .video-container:hover .video-info {
-        opacity: 1; /* Make the info visible on hover */
-        visibility: visible; /* Make the info visible on hover */
-    }
-</style>
-
 <body class="font-sans">
     <header class="relative h-screen">
-
         <!-- Hintergrundvideo -->
         <div class="absolute inset-0">
             <video autoplay muted loop class="w-full h-full object-cover">
@@ -99,87 +20,25 @@
 
         <!-- Navigation -->
         <nav class="flex justify-between py-10 px-20 relative text-white">
-            <div class="flex items-center">
-            </div>
-            <div class="flex text-lg space-x-10"> 
-                <a href="about.html" class="relative">
-                    <span class="border-2 border-transparent p-2 px-4 transition duration-200 hover:border-white hover:font-semibold hover:p-2 hover:px-4">ABOUT</span>
+            <div class="flex items-center"></div>
+            <div class="flex text-lg space-x-10">
+                <a href="about.html" class="relative border-2 border-transparent p-2 px-4 transition duration-200 hover:border-white hover:font-semibold hover:p-2 hover:px-4">
+                    ABOUT
                 </a>
             </div>
         </nav>
     </header>
 
-
-
+    
 
     <!-- Einzelne Videos -->
-    <div class="video-grid">
+    <div class="video-grid grid grid-cols-1 md:grid-cols-2 py-5 gap-5">
         <!-- Videos werden hier geladen -->
-    </div>
+        </div>
+    
 
 
-    <script>
-        // JavaScript code for loading JSON data and creating HTML elements
-        fetch('../projekt.json')
-            .then(response => response.json())
-            .then(data => {
-                const videoGrid = document.querySelector('.video-grid');
-    
-                data.forEach((video, index) => {
-                    const videoContainer = document.createElement('div');
-                    videoContainer.classList.add('video-container', 'group', 'relative', 'cursor-pointer', 'hover:opacity-80');
-    
-                    const videoElement = document.createElement('video');
-                    videoElement.classList.add('video');
-                    videoElement.controls = false;
-                    videoElement.muted = true;
-                    const videoSource = document.createElement('source');
-                    videoSource.src = video.source;
-                    videoSource.type = 'video/mp4';
-                    videoElement.appendChild(videoSource);
-    
-                    const imageElement = document.createElement('img');
-                    imageElement.src = video.standbild;
-                    imageElement.alt = video.title;
-    
-                    const videoInfo = document.createElement('div');
-                    videoInfo.classList.add('video-info');
-    
-                    const description = document.createElement('p');
-                    description.classList.add('text-sm');
-                    description.textContent = video.description;
-    
-                    videoInfo.appendChild(description);
-    
-                    videoContainer.appendChild(imageElement);
-                    videoContainer.appendChild(videoElement);
-                    videoContainer.appendChild(videoInfo);
-    
-                    imageElement.addEventListener('mouseover', () => {
-                        imageElement.style.opacity = 0;
-                        videoElement.style.display = 'block';
-                        videoElement.play();
-                        videoInfo.style.opacity = 1;
-                        videoInfo.style.visibility = 'visible';
-                    });
-    
-                    videoElement.addEventListener('mouseout', () => {
-                        videoElement.pause();
-                        videoElement.style.display = 'none';
-                        imageElement.style.opacity = 1;
-                        videoInfo.style.opacity = 0;
-                        videoInfo.style.visibility = 'hidden';
-                    });
-    
-                    videoContainer.addEventListener('click', () => {
-                        window.location.href = `projekt.html?index=${index}`;
-                    });
-    
-                    videoGrid.appendChild(videoContainer);
-                });
-            });
-    </script>
-    
+   
 
     <footer class="px-20 pt-5 pb-5 text-black flex items-center justify-between">
         <div>
@@ -203,8 +62,48 @@
             </a>
         </div>
     </footer>
-    
-    
-    
+
+    <script>
+        // Deine bisheriger JavaScript-Code
+
+        const projektJsonURL = "/projekt.json";
+        const videoGrid = document.querySelector(".video-grid");
+
+        const loadProjekte = async () => {
+            try {
+                const response = await fetch(projektJsonURL);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch project data: ${response.status} ${response.statusText}`);
+                }
+                const projekte = await response.json();
+
+                projekte.forEach((projekt) => {
+                    // Erstelle ein Container-Div für jedes Video
+                    const videoContainer = document.createElement("div");
+                    videoContainer.className = "video-container";
+
+                    // Erstelle ein Bild-Element für das Standbild und setze den Klick-Handler
+                    const standbildImg = document.createElement("img");
+                    standbildImg.src = projekt["standbild"];
+                    standbildImg.alt = projekt["title"];
+                    standbildImg.addEventListener("click", () => {
+                        // Weiterleitung zur projekt.html-Seite, wenn auf das Standbild geklickt wird
+                        window.location.href = projekt["url"];
+                    });
+
+                    // Füge das Standbild zum Video-Container hinzu
+                    videoContainer.appendChild(standbildImg);
+
+                    // Füge den Video-Container zum Video-Grid hinzu
+                    videoGrid.appendChild(videoContainer);
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        loadProjekte();
+    </script>
+
 </body>
 </html>
