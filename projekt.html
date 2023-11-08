@@ -17,7 +17,7 @@
         
         .video-info {
             flex: 1; /* Der Text nimmt den verbleibenden Platz ein */
-            padding: 4vw; /* Fügen Sie Padding hinzu, um den Text vom Video zu trennen */
+            padding: 4vw; 
         }
 
     </style>
@@ -26,7 +26,7 @@
 
 <body class="font-sans">
     <header class="bg-cover" style="background-image: url('assets/img/background.png');">
-        <nav class="flex justify between py-10 px-20 relative text-white">
+        <nav class="flex justify-between py-10 px-20 relative text-white">
             <div class="flex items-center">
             </div>
             <div class="flex text-lg space-x-10"> 
@@ -41,10 +41,9 @@
     </header>
 
 
-    <div class="grid grid-flow-row p-20">
-        <div class="flex-container">
+
+        <div class="flex flex-row p-20">
             <div class="video">
-                <iframe style="width: 100%; height: 100%;" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
             </div>
             <div class="video-info">
                 <h1 class="text-3xl font-semibold text-gray-800 mb-2"></h1>
@@ -52,7 +51,7 @@
                 <p class="text-lg mb-8"></p>
             </div>
         </div>
-    </div>
+
 
 
     <footer class="px-20 pt-5 pb-5 text-black flex items-center justify-between">
@@ -96,27 +95,28 @@
     }
 
     // Laden und Anzeigen des Videoinhalts basierend auf dem ausgewählten Index
-    fetch('projekt.json') // Passen Sie den Pfad zu Ihrer JSON-Datei an
-        .then(response => response.json())
-        .then(data => {
-            const selectedVideoIndex = parseInt(getUrlParameter('index')) || 0;
+    fetch('projekt.json') 
+    .then(response => response.json())
+    .then(data => {
+        const selectedVideoIndex = parseInt(getUrlParameter('index')) || 0;
 
-            if (selectedVideoIndex >= 0 && selectedVideoIndex < data.length) {
-                const video = data[selectedVideoIndex];
+        if (selectedVideoIndex >= 0 && selectedVideoIndex < data.length) {
+            const video = data[selectedVideoIndex];
 
-                // Finden und Aktualisieren von Videoelementen
-                const videoElement = document.querySelector('.video iframe'); // Hier wird das iframe-Element ausgewählt
-                const titleElement = document.querySelector('.video-info h1');
-                const descriptionElement = document.querySelectorAll('.video-info p');
+            // Finden und Aktualisieren von Videoelementen
+            const videoElement = document.querySelector('.video'); 
+            const titleElement = document.querySelector('.video-info h1');
+            const descriptionElement = document.querySelectorAll('.video-info p');
 
-                // Videoquelle festlegen
-                videoElement.src = video['source-yt'];
+            // Videoquelle festlegen
+            videoElement.innerHTML = `<iframe width="100%" height="100%" src="${video['source-yt']}" frameborder="0" allowfullscreen></iframe>`;
 
-                // Titel und Beschreibung setzen
-                titleElement.textContent = video.title;
-                descriptionElement[0].textContent = video.beschreibung;
-            }
-        });
+            // Titel und Beschreibung hinzufügen
+            titleElement.textContent = video.title;
+            descriptionElement[0].textContent = video.beschreibung;
+        }
+    });
+    
 </script>
 </body>
 </html>
