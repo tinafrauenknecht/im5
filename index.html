@@ -10,28 +10,48 @@
 </head>
 
 <body class="font-sans">
-    <header class="relative h-screen">
-        <!-- Hintergrundvideo -->
-        <div class="absolute inset-0">
-            <video autoplay muted loop class="w-full h-full object-cover">
+    <header class="relative sm:h-screen">
+        <!-- Hintergrundvideo nur für Desktop-Screens -->
+        <div class="absolute sm:inset-0 hidden sm:block">
+            <video autoplay muted loop class="w-full sm:h-full sm:object-cover">
                 <source src="assets/videos/hintergrund.mp4" type="video/mp4">
             </video>
         </div>
-
-        <!-- Navigation -->
-        <nav class="flex justify-between py-10 px-20 relative text-white">
-            <div class="flex items-center"></div>
+    
+        <!-- Navigation nur für Desktop-Screens -->
+        <nav class="hidden sm:flex justify-center sm:justify-end py-10 px-20 relative text-white">
             <div class="flex text-lg space-x-10">
                 <a href="about.html" class="relative border-2 border-transparent p-2 px-4 transition duration-200 hover:border-white hover:font-semibold hover:p-2 hover:px-4">
                     ABOUT
                 </a>
             </div>
         </nav>
-    </header>
 
-    <!-- Einzelne Videos -->
-    <div class="video-grid grid grid-cols-1 md:grid-cols-2 py-5 gap-5">
-        <!-- Videos werden hier geladen -->
+    
+        <!-- Hintergrundbild nur für Mobile-Screens -->
+        <div class="bg-cover index-0 sm:hidden" style="background-image: url('assets/img/background.png');">
+
+        <!-- Navigation nur für Mobile Screens -->
+        <div class="sm:hidden">
+            <nav class="flex flex-col sm:flex-row justify-between py-5 relative text-white items-center sm:items-start">
+                <div class="flex items-center sm:items-start">
+                </div>
+                <div class="flex text-lg space-x-10 justify-center sm:justify-end">
+                    <a href="about.html" class="relative">
+                        <span class="border-2 border-transparent p-2 px-4 transition duration-200 hover:border-white hover:font-semibold hover:p-2 hover:px-4">ABOUT</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+        </div>
+
+    </header>
+    
+    
+
+    <!-- Projekte -->
+    <div class="projekte-grid grid grid-cols-1 md:grid-cols-2 py-5 gap-5">
+        <!-- Die einzelnen Projetkte werden hier geladen -->
     </div>
 
     <footer class="px-4 py-2 text-black flex flex-col items-center text-sm sm:px-20 sm:flex-row sm:items-center sm:justify-between">
@@ -87,7 +107,7 @@
 
     <script>
         const projektJsonURL = "/projekt.json";
-        const videoGrid = document.querySelector(".video-grid");
+        const projekteGrid = document.querySelector(".projekte-grid");
 
         const loadProjekte = async () => {
             try {
@@ -98,8 +118,8 @@
                 const projekte = await response.json();
 
                 projekte.forEach((projekt, index) => {
-                    const videoContainer = document.createElement("div");
-                    videoContainer.className = "video-container";
+                    const projekteContainer = document.createElement("div");
+                    projekteContainer.className = "video-container";
 
                     const standbildImg = document.createElement("img");
                     standbildImg.src = projekt["standbild"];
@@ -111,8 +131,8 @@
                         window.location.href = `/projekt.html?index=${index}`;
                     });
 
-                    videoContainer.appendChild(standbildImg);
-                    videoGrid.appendChild(videoContainer);
+                    projekteContainer.appendChild(standbildImg);
+                    projekteGrid.appendChild(projekteContainer);
                 });
             } catch (error) {
                 console.error(error);
