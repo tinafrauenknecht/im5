@@ -29,16 +29,10 @@
         </nav>
     </header>
 
-    
-
     <!-- Einzelne Videos -->
     <div class="video-grid grid grid-cols-1 md:grid-cols-2 py-5 gap-5">
         <!-- Videos werden hier geladen -->
-        </div>
-    
-
-
-   
+    </div>
 
     <footer class="px-20 pt-5 pb-5 text-black flex items-center justify-between">
         <div>
@@ -64,12 +58,8 @@
     </footer>
 
     <script>
-
-
         const projektJsonURL = "/projekt.json";
         const videoGrid = document.querySelector(".video-grid");
-
-        
 
         const loadProjekte = async () => {
             try {
@@ -79,24 +69,21 @@
                 }
                 const projekte = await response.json();
 
-                projekte.forEach((projekt) => {
-                    // Erstelle ein Container-Div für jedes Video
+                projekte.forEach((projekt, index) => {
                     const videoContainer = document.createElement("div");
                     videoContainer.className = "video-container";
 
-                    // Erstelle ein Bild-Element für das Standbild und setze den Klick-Handler
                     const standbildImg = document.createElement("img");
                     standbildImg.src = projekt["standbild"];
                     standbildImg.alt = projekt["title"];
+                    standbildImg.classList.add("hover:opacity-90");
+
                     standbildImg.addEventListener("click", () => {
-                        // Weiterleitung zur projekt.html-Seite, wenn auf das Standbild geklickt wird
-                        window.location.href = projekt["url"];
+                        // Weiterleitung zur projekt.html-Seite mit dem ausgewählten Index
+                        window.location.href = `/projekt.html?index=${index}`;
                     });
 
-                    // Füge das Standbild zum Video-Container hinzu
                     videoContainer.appendChild(standbildImg);
-
-                    // Füge den Video-Container zum Video-Grid hinzu
                     videoGrid.appendChild(videoContainer);
                 });
             } catch (error) {
@@ -106,6 +93,5 @@
 
         loadProjekte();
     </script>
-
 </body>
 </html>
