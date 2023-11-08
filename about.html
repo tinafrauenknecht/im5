@@ -57,17 +57,20 @@
     </div>
 
 
-    <footer class="px-20 pt-5 pb-5 text-black flex items-center justify-between">
-        <div>
+    <footer class="px-4 py-2 text-black flex flex-col items-center text-sm sm:px-20 sm:flex-row sm:items-center sm:justify-between">
+
+        <!-- Footer für Desktop Screens  -->
+        <div class="hidden sm:flex items-center">
             <a href="impressum.html" class="text-sm">Impressum</a>
-            &#124;
+            <span class="mx-1">|</span>
             <a href="datenschutz.html" class="text-sm">Datenschutz</a>
         </div>
-
-        <div>
+    
+        <div class="hidden sm:flex items-center">
             <span class="mr-2 text-sm">Tina Frauenknecht © 2023</span>
         </div>
-        <div class="flex items-center">
+    
+        <div class="hidden sm:flex items-center">
             <a href="https://www.instagram.com/swissunihockey/" class="mx-2 text-sm">
                 <img src="assets/icons/instagram.png" alt="Instagram" width="24" height="24">
             </a>
@@ -77,6 +80,31 @@
             <a href="mailto:tina.frauenknecht@hotmail.com" class="mx-2 text-sm">
                 <img src="assets/icons/mail.png" alt="E-Mail" width="24" height="24">
             </a>
+        </div>
+    
+        <!-- Footer für Mobile Screens  -->
+        <div class="sm:hidden flex flex-col items-center justify-center">
+            <div class="mb-2">
+                <a href="impressum.html" class="text-sm">Impressum</a>
+                <span class="mx-1">|</span>
+                <a href="datenschutz.html" class="text-sm">Datenschutz</a>
+            </div>
+    
+            <div class="mb-2">
+                <span >Tina Frauenknecht © 2023</span>
+            </div>
+    
+            <div class="flex items-center">
+                <a href="https://www.instagram.com/swissunihockey/" class="mx-2 text-sm">
+                    <img src="assets/icons/instagram.png" alt="Instagram" width="20" height="20">
+                </a>
+                <a href="https://www.youtube.com/@swissunihockey" class="mx-2 text-sm" target="_blank">
+                    <img src="assets/icons/youtube.png" alt="Youtube" width="20" height="20">
+                </a>
+                <a href="mailto:tina.frauenknecht@hotmail.com" class="mx-2 text-sm">
+                    <img src="assets/icons/mail.png" alt="E-Mail" width="20" height="20">
+                </a>
+            </div>
         </div>
     </footer>
 </body>
