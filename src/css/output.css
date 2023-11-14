@@ -529,7 +529,7 @@ video {
 /* Mobile Ansicht */ 
   .mobile { 
     position: relative;
-    padding-bottom: 56.25%;  /* Aspect Ratio 16:9 = 56.25% */ 
+    padding-bottom: 50%;  /* Aspect Ratio 16:9 = 56.25% */ 
     padding-top: 0;
     height: 0;
     overflow: hidden;
