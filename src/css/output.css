@@ -526,21 +526,15 @@ video {
 
 @layer base {
 
-  .youtube-responsive-ds { /* Desktop Ansicht */ 
-      position: relative;
-      padding-bottom: 37.5%;
-      padding-top: 0;
-      height: 0;
-      overflow: hidden;
-  }
-
-  .youtube-responsive-ms { /* Mobile Ansicht */ 
+/* Mobile Ansicht */ 
+  .mobile { 
     position: relative;
-    padding-bottom: 56.25%;
+    padding-bottom: 56.25%;  /* Aspect Ratio 16:9 = 56.25% */ 
     padding-top: 0;
     height: 0;
     overflow: hidden;
 }
+
 
   .youtube-responsive iframe {
       position: absolute;
