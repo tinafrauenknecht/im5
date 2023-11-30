@@ -26,7 +26,9 @@
         </nav>
     </header>
 
+
     <div class="flex flex-col sm:flex-row flex-grow items-center sm:gap-10 p-10 sm:p-20">
+    <!-- Das Projetkt wird hier geladen -->
         <div class="video youtube-responsive mobile sm:desktop w-full">
         </div>
         <div class="video-info w-full sm:w-1/3">
@@ -34,9 +36,9 @@
             <p class="text-lg mb-8"></p>
             <p class="text-lg mb-8"></p>
         </div>
-    </div>
+    </div><br><br><br>
 
-    <br><br><br>
+    
 
     <footer class="px-4 py-2 text-black flex flex-col items-center text-sm sm:flex-row sm:items-center sm:justify-between">
         <!-- Footer für Desktop Screens  -->
@@ -107,7 +109,6 @@
                 const titleElement = document.querySelector('.video-info h1');
                 const descriptionElement = document.querySelectorAll('.video-info p');
 
-                // videoElement.innerHTML = `<iframe class="w-full h-full" src="${video['source-yt']}" frameborder="0" allowfullscreen></iframe>`;
                 videoElement.innerHTML = `<iframe src="${video['source-yt']}"  frameborder="0" allowfullscreen="allowfullscreen"></iframe>`;
                 titleElement.textContent = video.title;
                 descriptionElement[0].textContent = video.beschreibung;
